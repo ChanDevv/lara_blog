@@ -58,6 +58,7 @@ class HomeController extends Controller
     {
         // dd($post); 
         // $post = Post::findOrFail($id);
+        dd($post->categories->name);
         return view('show', compact('post'));
     }
 
@@ -76,12 +77,16 @@ class HomeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(StorePostRequest $request, Post $post)
     {
         // $update= Post::findOrFail($id);
-        $request->validate([
-            'title' => 'bail|required|max:255',
-            'description' => 'required|max:255',
+        // $request->validate([
+        //     'title' => 'bail|required|max:255',
+        //     'description' => 'required|max:255',
+        // ]);
+        $post->update([
+            'title' => $request->title,
+            'description' => $request->description,
         ]);
 
         $post->title = $request->title;
